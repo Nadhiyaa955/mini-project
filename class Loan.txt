@@ -1,0 +1,61 @@
+class Loan:
+    def _init_(self, loanId, customerName, loanAmount, interestRate, daysDelayed, salaryPermonth, age, experience):
+        self.loanId = loanId
+        self.customerName = customerName
+        self.loanAmount = loanAmount
+        self.interestRate = interestRate
+        self.daysDelayed = daysDelayed
+        self.salaryPermonth = salaryPermonth
+        self.age = age
+        self.experience = experience
+        self.interest = 0
+        self.fineamount = 0
+
+class Documents:
+    def _init_(self, aadhar, voterID, pancard, employeeID):
+        self.aadhar = aadhar
+        self.voterID = voterID
+        self.pancard = pancard
+        self.employeeID = employeeID
+
+def check_eligibility(loan):
+    if 21 <= loan.age <= 60 and loan.salaryPermonth >= 25000 and loan.experience >= 5:
+        print("You are eligible for loan")
+    else:
+        print("You are not eligible for loan")
+
+def documents_required():
+    aadhar = int(input("Enter Aadhar number: "))
+    voterID = int(input("Enter voter's ID: "))
+    pancard = int(input("Enter PAN number: "))
+    employeeID = int(input("Enter Employee ID: "))
+    return Documents(aadhar, voterID, pancard, employeeID)
+
+def calculate_interest(loan):
+    loan.interest = (loan.loanAmount * loan.interestRate) / 100
+    print(f"Interest per month: {loan.interest} rupees")
+
+def calculate_fine(loan):
+    finerate = 1
+    loan.fineamount = (loan.loanAmount * loan.interestRate / 100) + (finerate * loan.daysDelayed)
+    print(f"Fine for the loan: {loan.fineamount} rupees")
+
+def main():
+    loanId = int(input("Enter your loan ID: "))
+    customerName = input("Enter your name: ")
+    loanAmount = int(input("Enter loan amount: "))
+    interestRate = float(input("Enter interest rate: "))
+    daysDelayed = int(input("Enter the number of days you delayed: "))
+    salaryPermonth = int(input("Enter your salary per month: "))
+    age = int(input("Enter your age: "))
+    experience = int(input("Enter your experience: "))
+
+    detail = Loan(loanId, customerName, loanAmount, interestRate, daysDelayed, salaryPermonth, age, experience)
+
+    check_eligibility(detail)
+    documents = documents_required()
+    calculate_interest(detail)
+    calculate_fine(detail)
+
+if _name_ == "_main_":
+    main()
